@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Retrieve Boarding Pass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --swiss-red: #E30613
+        }
+
+        .swiss-board {
+            background: linear-gradient(135deg, var(--swiss-red) 0%, #B0000E 100%)
+        }
+
+        .swiss-btn {
+            background: var(--swiss-red)
+        }
+
+        .swiss-btn:hover {
+            background: #C10010
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 min-h-screen">
+    <header class="swiss-board text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-extrabold">Generate Boarding Pass</h1>
+            <p class="opacity-90">Enter your details</p>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="max-w-md mx-auto bg-white rounded-lg shadow-md p-8">
+            <form method="post" action="/boarding-pass">
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Passenger Name</label>
+                    <input type="text" name="passengerName" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="DOE/JOHN MR">
+                </div>
+
+                <div class="mb-6">
+                    <label class="block text-sm font-medium text-gray-700 mb-2">Booking Reference</label>
+                    <input type="text" name="bookingReference" required
+                        class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-red-500"
+                        placeholder="ABC123">
+                </div>
+
+                <button type="submit"
+                    class="w-full swiss-btn text-white py-2 px-4 rounded-md hover:bg-red-700 font-medium">
+                    Generate Boarding Pass
+                </button>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

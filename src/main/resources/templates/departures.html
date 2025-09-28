@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Departures</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --swiss-red: #E30613
+        }
+
+        .swiss-board {
+            background: linear-gradient(135deg, var(--swiss-red) 0%, #B0000E 100%)
+        }
+
+        .swiss-accent {
+            color: var(--swiss-red)
+        }
+
+        .swiss-btn {
+            background: var(--swiss-red)
+        }
+
+        .swiss-btn:hover {
+            background: #C10010
+        }
+
+        .swiss-pill {
+            background: rgba(227, 6, 19, .1);
+            color: var(--swiss-red)
+        }
+
+        .swiss-bar {
+            background: var(--swiss-red)
+        }
+    </style>
+</head>
+
+<body class="bg-neutral-50 min-h-screen">
+    <!-- Header -->
+    <header class="swiss-board text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Departures Board</h1>
+                    <p class="opacity-90">Airline AI Demo</p>
+                </div>
+                <div class="text-right">
+                    <div class="text-xl font-semibold" th:text="${#temporals.format(date, 'EEEE, MMMM d, yyyy')}"></div>
+                    <div class="opacity-80" th:text="${airport}"></div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation -->
+    <nav class="bg-white border-b">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex flex-wrap items-center gap-4">
+                <a href="/departures" class="font-medium swiss-accent hover:underline">All Departures</a>
+                <div class="relative">
+                    <select onchange="window.location.href='/departures/' + this.value"
+                        class="appearance-none bg-white border border-neutral-300 rounded px-3 py-1 pr-8 focus:outline-none focus:ring-2 focus:ring-[var(--swiss-red)]">
+                        <option value="">Filter by Airport</option>
+                        <option th:each="apt : ${airports}" th:value="${apt.name()}" th:text="${apt.toString()}"
+                            th:selected="${apt.name() == airportCode}">
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <div class="px-6 py-4 border-b">
+                <h2 class="text-xl font-semibold text-neutral-900">
+                    Today's Departures
+                    <span class="text-sm font-normal text-neutral-600">
+                        (<span th:text="${flights.size()}"></span> flights)
+                    </span>
+                </h2>
+            </div>
+
+            <div th:if="${flights.isEmpty()}" class="p-10 text-center text-neutral-600">
+                <div class="text-5xl mb-4">✈️</div>
+                <p class="text-lg">No flights scheduled for today</p>
+                <p class="text-sm mt-2">Check back later or try a different airport</p>
+            </div>
+
+            <div th:unless="${flights.isEmpty()}" class="overflow-x-auto">
+                <table class="w-full">
+                    <thead class="bg-neutral-50 text-xs uppercase tracking-wider text-neutral-700">
+                        <tr>
+                            <th class="px-6 py-3 text-left font-medium">Flight</th>
+                            <th class="px-6 py-3 text-left font-medium">Route</th>
+                            <th class="px-6 py-3 text-left font-medium">Departure</th>
+                            <th class="px-6 py-3 text-left font-medium">Status</th>
+                            <th class="px-6 py-3 text-left font-medium">Gate</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-neutral-200">
+                        <tr th:each="flight : ${flights}" class="hover:bg-neutral-50">
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="font-semibold text-neutral-900" th:text="${flight.flightNumber}"></div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div class="text-sm">
+                                    <!-- Simple route from codes -->
+                                    <div class="font-medium text-neutral-900"
+                                        th:text="|${flight.origin} → ${flight.destination}|"></div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900"
+                                th:text="${#temporals.format(flight.departureTime, 'HH:mm')}"></td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span th:class="${'px-2 py-1 text-xs font-semibold rounded-full ' +
+                                   (flight.status.name() == 'SCHEDULED' ? 'bg-green-100 text-green-800' :
+                                    flight.status.name() == 'DELAYED'   ? 'bg-yellow-100 text-yellow-800' :
+                                    flight.status.name() == 'CANCELLED' ? 'bg-red-100 text-red-800' :
+                                    flight.status.name() == 'BOARDING'  ? 'swiss-pill' :
+                                    'bg-neutral-100 text-neutral-800')}" th:text="${flight.status}"></span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-neutral-900">
+                                <span th:if="${flight.gate != null and !#strings.isEmpty(flight.gate)}"
+                                    th:text="${flight.gate}"></span>
+                                <span th:unless="${flight.gate != null and !#strings.isEmpty(flight.gate)}"
+                                    class="text-neutral-400">—</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+</body>
+
+</html>

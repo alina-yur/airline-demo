@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Boarding Pass</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root {
+            --swiss-red: #E30613
+        }
+
+        .swiss-board {
+            background: linear-gradient(135deg, var(--swiss-red) 0%, #B0000E 100%)
+        }
+
+        .swiss-accent {
+            color: var(--swiss-red)
+        }
+
+        .boarding-pass {
+            background: white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1)
+        }
+
+        .perforated-line {
+            background-image: repeating-linear-gradient(to right, #ccc 0px, #ccc 8px, transparent 8px, transparent 16px);
+            height: 2px;
+            margin: 20px 0;
+        }
+
+        .stub-border {
+            border-right: 2px dashed #ccc
+        }
+
+        @media print {
+            body {
+                margin: 0;
+                background: white
+            }
+
+            .no-print {
+                display: none !important
+            }
+
+            .boarding-pass {
+                box-shadow: none;
+                margin: 0;
+                width: 100%
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+    <header class="swiss-board text-white shadow-lg no-print">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-3xl font-extrabold tracking-tight">Boarding Pass</h1>
+                    <p class="opacity-90">Flight Confirmation</p>
+                </div>
+                <button onclick="window.print()" class="bg-white text-red-600 px-4 py-2 rounded hover:bg-gray-100">
+                    Print Boarding Pass
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="boarding-pass max-w-4xl mx-auto rounded-lg overflow-hidden">
+
+            <div class="swiss-board text-white px-8 py-6">
+                <div class="flex justify-between items-center">
+                    <div>
+                        <h1 class="text-2xl font-bold">SWISS</h1>
+                        <p class="text-sm opacity-90">Swiss International Air Lines</p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-sm opacity-90">BOARDING PASS</p>
+                        <p class="text-lg font-semibold">LX 123</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white">
+                <div class="flex">
+                    <div class="flex-grow p-8 stub-border">
+                        <div class="grid grid-cols-3 gap-8">
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Passenger
+                                </h3>
+                                <p class="text-xl font-bold text-gray-900" th:text="${passengerName}">DOE/JOHN MR</p>
+                                <p class="text-sm text-gray-600 mt-1" th:text="${bookingReference}">ABC123</p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Route</h3>
+                                <div class="flex items-center space-x-3">
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-gray-900">ZUR</p>
+                                        <p class="text-xs text-gray-600">Zurich</p>
+                                    </div>
+                                    <div class="flex-grow">
+                                        <div class="h-0.5 bg-gray-300 relative">
+                                            <div
+                                                class="absolute right-0 top-0 w-2 h-2 bg-gray-300 rounded-full transform -translate-y-1/2">
+                                            </div>
+                                        </div>
+                                        <p class="text-xs text-gray-500 text-center mt-1">Direct</p>
+                                    </div>
+                                    <div class="text-center">
+                                        <p class="text-2xl font-bold text-gray-900">LHR</p>
+                                        <p class="text-xs text-gray-600">London</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Date</h3>
+                                <p class="text-lg font-bold text-gray-900">19 SEP 2025</p>
+                                <p class="text-sm text-gray-600">Friday</p>
+                            </div>
+                        </div>
+
+                        <div class="perforated-line"></div>
+
+                        <div class="grid grid-cols-4 gap-6">
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Departure
+                                </h3>
+                                <p class="text-2xl font-bold swiss-accent">08:30</p>
+                                <p class="text-sm text-gray-600">Local Time</p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Gate</h3>
+                                <p class="text-2xl font-bold text-gray-900">A12</p>
+                                <p class="text-sm text-gray-600">Check monitors</p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Seat</h3>
+                                <p class="text-2xl font-bold text-gray-900">12A</p>
+                                <p class="text-sm text-gray-600">Window</p>
+                            </div>
+
+                            <div>
+                                <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Class</h3>
+                                <p class="text-lg font-bold text-gray-900">Economy</p>
+                                <p class="text-sm text-gray-600">Y</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8 p-4 bg-red-50 rounded-lg border border-red-200">
+                            <div class="flex justify-between items-center">
+                                <div>
+                                    <h3 class="text-sm font-semibold swiss-accent uppercase tracking-wider">Boarding
+                                    </h3>
+                                    <p class="text-lg font-bold text-gray-900">08:00</p>
+                                </div>
+                                <div class="text-right">
+                                    <p class="text-xs text-gray-600">Boarding closes</p>
+                                    <p class="text-sm font-semibold text-gray-900">08:20</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-64 p-6 bg-gray-50">
+                        <div class="text-center mb-6">
+                            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Flight</h3>
+                            <p class="text-xl font-bold swiss-accent">LX 123</p>
+                        </div>
+
+                        <div class="mb-6">
+                            <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3 text-center">
+                                QR Code
+                            </h3>
+                            <div class="flex justify-center">
+                                <pre class="text-[14px] leading-[14px] whitespace-pre text-center"
+                                    th:utext="${qrCode}">QR_CODE</pre>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 px-8 py-4 border-t">
+                    <div class="flex justify-between items-center text-xs text-gray-600">
+                        <span>Booking ref: <span class="font-mono font-semibold"
+                                th:text="${bookingReference}">ABC123</span></span>
+                        <span>Aircraft: A320</span>
+                        <span>ETD: 08:30</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center mt-8 no-print">
+            <a href="/boarding-pass" class="bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700">
+                Generate Another
+            </a>
+        </div>
+    </main>
+</body>
+
+</html>

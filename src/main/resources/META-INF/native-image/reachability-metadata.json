@@ -1,0 +1,56 @@
+{
+  "reflection": [
+    {
+      "type": "com.example.airlinedemo.model.Flight",
+      "allDeclaredConstructors": true,
+      "allPublicMethods": true
+    },
+    {
+      "type": "com.example.airlinedemo.model.Airport",
+      "allPublicFields": true,
+      "allPublicMethods": true
+    },
+    {
+      "type": "com.example.airlinedemo.model.FlightStatus",
+      "allPublicFields": true,
+      "allPublicMethods": true
+    },
+    {
+      "type": "org.thymeleaf.expression.Temporals",
+      "methods": [
+        {
+          "name": "format",
+          "parameterTypes": [
+            "java.time.temporal.Temporal",
+            "java.lang.String"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "org.thymeleaf.expression.Strings",
+      "methods": [
+        {
+          "name": "isEmpty",
+          "parameterTypes": [
+            "java.lang.Object"
+          ]
+        }
+      ]
+    }
+  ],
+  "resources": [
+    {
+      "glob": "templates/**"
+    },
+    {
+      "glob": "application*.properties"
+    },
+    {
+      "glob": "application*.yml"
+    },
+    {
+      "glob": "application*.yaml"
+    }
+  ]
+}
