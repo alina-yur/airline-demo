@@ -40,7 +40,11 @@
             <scope>runtime</scope>
         </dependency>
 
-        <!-- GraalVM Polyglot + GraalPy (recommended coords) -->
+        <dependency>
+            <groupId>org.graalvm.polyglot</groupId>
+            <artifactId>polyglot</artifactId>
+            <version>${graalvm.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.graalvm.python</groupId>
             <artifactId>python-language</artifactId>
@@ -87,6 +91,7 @@
                 <configuration>
                     <packages>
                         <package>qrcode==7.4.2</package>
+                        <package>pygal==3.0.5</package>
                     </packages>
                 </configuration>
                 <executions>
