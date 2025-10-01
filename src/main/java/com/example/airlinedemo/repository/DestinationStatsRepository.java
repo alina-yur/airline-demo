@@ -18,7 +18,7 @@ public class DestinationStatsRepository {
         return jdbc.query(
                 """
                         SELECT destination, COUNT(*) AS cnt
-                        FROM flight_schedules
+                        FROM flights
                         GROUP BY destination
                         ORDER BY cnt DESC
                         """,
