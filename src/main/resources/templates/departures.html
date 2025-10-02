@@ -61,13 +61,14 @@
             <div class="flex flex-wrap items-center gap-4">
                 <a href="/departures" class="font-medium swiss-accent hover:underline">All Departures</a>
                 <div class="relative">
-                    <select onchange="window.location.href='/departures/' + this.value"
+                    <select onchange="window.location.href = this.value ? '/departures/' + this.value : '/departures'"
                         class="appearance-none bg-white border border-neutral-300 rounded px-3 py-1 pr-8 focus:outline-none focus:ring-2 focus:ring-[var(--swiss-red)]">
                         <option value="">Filter by Airport</option>
                         <option th:each="apt : ${airports}" th:value="${apt.name()}" th:text="${apt.toString()}"
                             th:selected="${apt.name() == airportCode}">
                         </option>
                     </select>
+
                 </div>
             </div>
         </div>
