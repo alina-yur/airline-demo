@@ -1,4 +1,3 @@
-
 package com.example.airlinedemo.controller;
 
 import com.example.airlinedemo.service.DestinationStatsService;

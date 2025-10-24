@@ -1,4 +1,3 @@
-// src/main/java/com/example/airlinedemo/repository/FlightStatusStatsRepository.java
 package com.example.airlinedemo.repository;
 
 import org.springframework.jdbc.core.JdbcTemplate;
